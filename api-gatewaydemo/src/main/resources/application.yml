@@ -1,0 +1,56 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      #globalcors:
+#cors-configurations:
+         # '[/**]':
+          #  allowedOrigins:
+             # - "http://localhost:8000"   # Gateway-hosted Swagger UI
+             # - "http://localhost:3000"   # your local frontend, if any
+             # - "https://your-domain.com" # add public origins if deployed
+           # allowedMethods: [GET, POST, PUT, DELETE, OPTIONS]
+           # allowedHeaders: ["*"]
+            #exposedHeaders: ["*"]
+           # allowCredentials: true
+      #default-filters:
+       # - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: User Service
+        url: /v3/api-docs/user
+      - name: Movie Service
+        url: /v3/api-docs/movie
+      - name: Booking Service
+        url: /v3/api-docs/booking
+      - name: Theatre Service
+        url: /v3/api-docs/theatre
+      - name: Showtime Service
+        url: /v3/api-docs/showtime
+      - name: Payment Service
+        url: /v3/api-docs/payment
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
+    reactor.netty.http.client: DEBUG
